@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restapi-user
+spec:
+  selector:
+    matchLabels:
+      app: restapi-user
+  template:
+    metadata:
+      labels:
+        app: restapi-user
+    spec:
+      containers:
+        - name: restapi-user
+          image: registry:5000/restapi-user
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: restapi-user-configmap
+            - secretRef:
+                name: restapi-user-secret
