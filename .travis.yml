@@ -21,7 +21,23 @@ jobs:
       install:
         - docker-compose -f docker-compose-build.yaml build --parallel
         - docker login -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD"
+        # Tagging and pushing reverseproxy
         - docker tag samuelmbas/reverseproxy samuelmbas/reverseproxy:latest
         - docker tag samuelmbas/reverseproxy "samuelmbas/reverseproxy:${TRAVIS_TAG}"
         - docker push samuelmbas/reverseproxy:latest
         - docker push "samuelmbas/reverseproxy:${TRAVIS_TAG}"
+        # Tagging and pushing restapi-user
+        - docker tag samuelmbas/udacity-restapi-user samuelmbas/udacity-restapi-user:latest
+        - docker tag samuelmbas/udacity-restapi-user "samuelmbas/udacity-restapi-user:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-restapi-user:latest
+        - docker push "samuelmbas/udacity-restapi-user:${TRAVIS_TAG}"
+        # Tagging and pushing restapi-feed
+        - docker tag samuelmbas/udacity-restapi-feed samuelmbas/udacity-restapi-feed:latest
+        - docker tag samuelmbas/udacity-restapi-feed "samuelmbas/udacity-restapi-feed:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-restapi-feed:latest
+        - docker push "samuelmbas/udacity-restapi-feed:${TRAVIS_TAG}"
+        # Tagging and pushing frontend
+        - docker tag samuelmbas/udacity-frontend samuelmbas/udacity-frontend:latest
+        - docker tag samuelmbas/udacity-frontend "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-frontend:latest
+        - docker push "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
