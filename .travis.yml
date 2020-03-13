@@ -8,6 +8,7 @@ env:
 jobs:
   include:
     - stage: build
+      if: tag IS present
       before_install:
         - docker -v && docker-compose -v
         - sudo rm /usr/local/bin/docker-compose
@@ -19,6 +20,8 @@ jobs:
         - sudo mv ./kubectl /usr/local/bin/kubectl
       install:
         - docker-compose -f docker-compose-build.yaml build --parallel
-    - stage: deploy images docker hub
-      script:
-        - docker images
+        - docker login -u "$REGISTRY_USERNAME" -p "REGISTRY_PASSWORD"
+        - docker tag samuelmbas/reverseproxy samuelmbas/reverseproxy:latest
+        - docker tag samuelmbas/reverseproxy "samuelmbas/reverseproxy:${TRAVIS_TAG}"
+        - docker push samuelmbas/reverseproxy:latest
+        - docker push "samuelmbas/reverseproxy:${TRAVIS_TAG}"
