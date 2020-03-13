@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
         - name: restapi-user
-          image: registry:5000/restapi-user
+          image: samuelmbas/udacity-restapi-user
           resources:
             limits:
               memory: "128Mi"

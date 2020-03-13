@@ -17,7 +17,7 @@ spec:
       containers:
         - name: restapi-feed
 
-          image: registry:5000/restapi-feed
+          image: samuelmbas/udacity-restapi-feed
           resources:
             limits:
               memory: "128Mi"

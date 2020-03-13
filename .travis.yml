@@ -44,14 +44,18 @@ jobs:
     - stage: deploy
       if: tag IS present
       before_script:
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+      script:
         - echo $KUBEFILE | base64 -d > KUBECONFIG
         - export KUBECONFIG=$PWD/KUBECONFIG
         # Deploy Frontend
-        - ./kubectl apply -f udacity-c3-frontend/k8s/service.yaml
-        - ./kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
+        - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
+        - kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
         # Deploy REST API Feed
-        - ./kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
-        - ./kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
+        - kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
+        - kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
         # Deploy REST API User
-        - ./kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
-        - ./kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml
+        - kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
+        - kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml
