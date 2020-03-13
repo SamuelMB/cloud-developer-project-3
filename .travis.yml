@@ -5,15 +5,39 @@ services: docker
 env:
   - DOCKER_COMPOSE_VERSION=1.23.2
 
-before_install:
-  - docker -v && docker-compose -v
-  - sudo rm /usr/local/bin/docker-compose
-  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
-  - chmod +x docker-compose
-  - sudo mv docker-compose /usr/local/bin
-  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-  - chmod +x ./kubectl
-  - sudo mv ./kubectl /usr/local/bin/kubectl
-
-install:
-  - docker-compose -f docker-compose-build.yaml build --parallel
+jobs:
+  include:
+    - stage: build
+      if: tag IS present
+      before_install:
+        - docker -v && docker-compose -v
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
+        - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        - chmod +x ./kubectl
+        - sudo mv ./kubectl /usr/local/bin/kubectl
+      install:
+        - docker-compose -f docker-compose-build.yaml build --parallel
+        - docker login -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD"
+        # Tagging and pushing reverseproxy
+        - docker tag samuelmbas/reverseproxy samuelmbas/reverseproxy:latest
+        - docker tag samuelmbas/reverseproxy "samuelmbas/reverseproxy:${TRAVIS_TAG}"
+        - docker push samuelmbas/reverseproxy:latest
+        - docker push "samuelmbas/reverseproxy:${TRAVIS_TAG}"
+        # Tagging and pushing restapi-user
+        - docker tag samuelmbas/udacity-restapi-user samuelmbas/udacity-restapi-user:latest
+        - docker tag samuelmbas/udacity-restapi-user "samuelmbas/udacity-restapi-user:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-restapi-user:latest
+        - docker push "samuelmbas/udacity-restapi-user:${TRAVIS_TAG}"
+        # Tagging and pushing restapi-feed
+        - docker tag samuelmbas/udacity-restapi-feed samuelmbas/udacity-restapi-feed:latest
+        - docker tag samuelmbas/udacity-restapi-feed "samuelmbas/udacity-restapi-feed:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-restapi-feed:latest
+        - docker push "samuelmbas/udacity-restapi-feed:${TRAVIS_TAG}"
+        # Tagging and pushing frontend
+        - docker tag samuelmbas/udacity-frontend samuelmbas/udacity-frontend:latest
+        - docker tag samuelmbas/udacity-frontend "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
+        - docker push samuelmbas/udacity-frontend:latest
+        - docker push "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
