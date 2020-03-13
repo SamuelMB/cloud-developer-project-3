@@ -20,7 +20,7 @@ jobs:
         - sudo mv ./kubectl /usr/local/bin/kubectl
       install:
         - docker-compose -f docker-compose-build.yaml build --parallel
-        - docker login -u "$REGISTRY_USERNAME" -p "REGISTRY_PASSWORD"
+        - docker login -u "$REGISTRY_USERNAME" -p "$REGISTRY_PASSWORD"
         - docker tag samuelmbas/reverseproxy samuelmbas/reverseproxy:latest
         - docker tag samuelmbas/reverseproxy "samuelmbas/reverseproxy:${TRAVIS_TAG}"
         - docker push samuelmbas/reverseproxy:latest
