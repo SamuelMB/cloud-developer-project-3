@@ -41,3 +41,9 @@ jobs:
         - docker tag samuelmbas/udacity-frontend "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
         - docker push samuelmbas/udacity-frontend:latest
         - docker push "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
+    - stage: deploy
+      if: tag IS present
+      before_script:
+        - echo $KUBEFILE | base64 -d > KUBECONFIG
+        - export KUBECONFIG=$PWD/KUBECONFIG
+        - kubectl get nodes
