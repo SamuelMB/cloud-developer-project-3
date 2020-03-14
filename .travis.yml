@@ -48,8 +48,8 @@ jobs:
         - chmod +x ./kubectl
         - sudo mv ./kubectl /usr/local/bin/kubectl
       script:
-        - echo $KUBEFILE | base64 -d > KUBECONFIG
-        - export KUBECONFIG=$PWD/KUBECONFIG
+        - echo $KUBEFILE | base64 -d > KUBECONFIG.yaml
+        - export KUBECONFIG=$PWD/KUBECONFIG.yaml
         # Deploy Frontend
         - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
         - kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
