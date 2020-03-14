@@ -57,6 +57,10 @@ jobs:
         # Deploy REST API Feed
         - kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
+        - kubectl apply -f udacity-c3-restapi-feed/k8s/configmap.yaml
+        - kubectl apply -f udacity-c3-restapi-feed/k8s/secret.yaml
         # Deploy REST API User
         - kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml
+        - kubectl apply -f udacity-c3-restapi-user/k8s/configmap.yaml
+        - kubectl apply -f udacity-c3-restapi-user/k8s/secret.yaml
