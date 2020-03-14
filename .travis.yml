@@ -42,13 +42,14 @@ jobs:
         - docker push samuelmbas/udacity-frontend:latest
         - docker push "samuelmbas/udacity-frontend:${TRAVIS_TAG}"
     - stage: deploy
-      if: tag IS present
+      # if: tag IS present
       before_script:
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
         - chmod +x ./kubectl
         - sudo mv ./kubectl /usr/local/bin/kubectl
       script:
         - echo $KUBEFILE | base64 -d > KUBECONFIG.yaml
+        - cat KUBECONFIG.yaml
         - export KUBECONFIG=$PWD/KUBECONFIG.yaml
         # Deploy Frontend
         - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
