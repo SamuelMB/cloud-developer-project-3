@@ -8,7 +8,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      service: restapi-feed
+      service: frontend
   template:
     metadata:
       labels:
