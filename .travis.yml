@@ -47,20 +47,22 @@ jobs:
         - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
         - chmod +x ./kubectl
         - sudo mv ./kubectl /usr/local/bin/kubectl
-      script:
         - echo $KUBEFILE | base64 -d > KUBECONFIG.yaml
         - cat KUBECONFIG.yaml
         - export KUBECONFIG=$PWD/KUBECONFIG.yaml
+        - echo $CONFIGMAP_FILE | base64 -d > configmap.properties
+        - echo $SECRET_FILE | base64 > secret.properties
+      script:
         # Deploy Frontend
         - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
         - kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
         # Deploy REST API Feed
         - kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
-        - kubectl apply -f udacity-c3-restapi-feed/k8s/configmap.yaml
-        - kubectl apply -f udacity-c3-restapi-feed/k8s/secret.yaml
+        - kubectl create configmap restapi-feed-configmap --from-env-file=configmap.properties
+        - kubectl create secret generic restapi-feed-secret --from-env-file=secret.properties
         # Deploy REST API User
         - kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml
-        - kubectl apply -f udacity-c3-restapi-user/k8s/configmap.yaml
-        - kubectl apply -f udacity-c3-restapi-user/k8s/secret.yaml
+        - kubectl create configmap restapi-user-configmap --from-env-file=configmap.properties
+        - kubectl create secret generic restapi-user-secret --from-env-file=secret.properties
