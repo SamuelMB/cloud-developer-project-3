@@ -51,7 +51,9 @@ jobs:
         - cat KUBECONFIG.yaml
         - export KUBECONFIG=$PWD/KUBECONFIG.yaml
         - echo $CONFIGMAP_FILE | base64 -d > configmap.properties
+        - cat configmap.properties
         - echo $SECRET_FILE | base64 > secret.properties
+        - cat secret.properties
       script:
         # Deploy Frontend
         - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
