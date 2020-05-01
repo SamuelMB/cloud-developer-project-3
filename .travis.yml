@@ -63,12 +63,8 @@ jobs:
         - cat udacity-c3-restapi-feed/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/$POSTGRES_USERNAME/g; s/{{POSTGRES_PASSWORD}}/$POSTGRES_PASSWORD/g; s/{{POSTGRES_DB}}/$POSTGRES_DB/g; s/{{POSTGRES_HOST}}/$POSTGRES_HOST/g; s/{{AWS_ACCESS_KEY_ID}}/$AWS_ACCESS_KEY_ID/g; s/{{AWS_SECRET_ACCESS_KEY}}/$AWS_SECRET_ACCESS_KEY/g; s/{{JWT_SECRET}}/$JWT_SECRET/g" | kubectl apply -f -
         - kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
-        - kubectl create configmap restapi-feed-configmap --from-env-file=configmap.properties
-        - kubectl create secret generic restapi-feed-secret --from-env-file=secret.properties
         # Deploy REST API User
         - cat udacity-c3-restapi-user/k8s/configmap.yaml | sed "s/{{AWS_REGION}}/$AWS_REGION/g; s/{{AWS_PROFILE}}/$AWS_PROFILE/g; s/{{AWS_BUCKET}}/$AWS_BUCKET/g" | kubectl apply -f -
         - cat udacity-c3-restapi-user/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/$POSTGRES_USERNAME/g; s/{{POSTGRES_PASSWORD}}/$POSTGRES_PASSWORD/g; s/{{POSTGRES_DB}}/$POSTGRES_DB/g; s/{{POSTGRES_HOST}}/$POSTGRES_HOST/g; s/{{AWS_ACCESS_KEY_ID}}/$AWS_ACCESS_KEY_ID/g; s/{{AWS_SECRET_ACCESS_KEY}}/$AWS_SECRET_ACCESS_KEY/g; s/{{JWT_SECRET}}/$JWT_SECRET/g" | kubectl apply -f -
         - kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml
-        - kubectl create configmap restapi-user-configmap --from-env-file=configmap.properties
-        - kubectl create secret generic restapi-user-secret --from-env-file=secret.properties
