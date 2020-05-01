@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: restapi-feed
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: restapi-feed
@@ -21,7 +20,7 @@ spec:
           resources:
             limits:
               memory: "128Mi"
-              cpu: "500m"
+              cpu: "250m"
           ports:
             - containerPort: 8080
           envFrom:
