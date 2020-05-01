@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reverse-proxy
+spec:
+  selector:
+    matchLabels:
+      app: reverse-proxy
+
+  template:
+    metadata:
+      labels:
+        app: reverse-proxy
+
+    spec:
+      containers:
+        - name: reverse-proxy
+
+          image: samuelmbas/reverseproxy
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 80
