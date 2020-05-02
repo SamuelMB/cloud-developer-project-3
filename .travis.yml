@@ -55,6 +55,9 @@ jobs:
         - echo $SECRET_FILE | base64 > secret.properties
         - cat secret.properties
       script:
+        # Deploy ReverseProxy
+        - kubectl apply -f reverseproxy/k8s/service.yaml
+        - kubectl apply -f reverseproxy/k8s/deployment.yaml
         # Deploy Frontend
         - kubectl apply -f udacity-c3-frontend/k8s/service.yaml
         - kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
