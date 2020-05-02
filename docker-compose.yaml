@@ -19,8 +19,6 @@ services:
       AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       URL: "http://localhost:8100"
   restapi-feed:
     image: samuelmbas/restapi-feed
@@ -33,8 +31,6 @@ services:
       AWS_PROFILE: $AWS_PROFILE
       AWS_BUCKET: $AWS_BUCKET
       JWT_SECRET: $JWT_SECRET
-      AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-      AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
       URL: "http://localhost:8100"
   frontend:
     image: samuelmbas/frontend

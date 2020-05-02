@@ -28,3 +28,11 @@ spec:
                 name: restapi-feed-configmap
             - secretRef:
                 name: restapi-feed-secret
+          volumeMounts:
+            - name: aws-auth
+              mountPath: "/root/.aws/"
+              readOnly: true
+      volumes:
+        - name: aws-auth
+          secret:
+            secretName: aws-auth

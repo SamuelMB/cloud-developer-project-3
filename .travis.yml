@@ -60,11 +60,12 @@ jobs:
         - kubectl apply -f udacity-c3-frontend/k8s/deployment.yaml
         # Deploy REST API Feed
         - cat udacity-c3-restapi-feed/k8s/configmap.yaml | sed "s/{{AWS_REGION}}/$AWS_REGION/g; s/{{AWS_PROFILE}}/$AWS_PROFILE/g; s/{{AWS_BUCKET}}/$AWS_BUCKET/g" | kubectl apply -f -
-        - cat udacity-c3-restapi-feed/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/'$POSTGRES_USERNAME'/g; s/{{POSTGRES_PASSWORD}}/'$POSTGRES_PASSWORD'/g; s/{{POSTGRES_DB}}/'$POSTGRES_DB'/g; s/{{POSTGRES_HOST}}/'$POSTGRES_HOST'/g; s/{{AWS_ACCESS_KEY_ID}}/'$AWS_ACCESS_KEY_ID'/g; s#{{AWS_SECRET_ACCESS_KEY}}#'$AWS_SECRET_ACCESS_KEY'#g; s/{{JWT_SECRET}}/'$JWT_SECRET'/g" | kubectl apply -f -
+        - cat udacity-c3-restapi-feed/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/'$POSTGRES_USERNAME'/g; s/{{POSTGRES_PASSWORD}}/'$POSTGRES_PASSWORD'/g; s/{{POSTGRES_DB}}/'$POSTGRES_DB'/g; s/{{POSTGRES_HOST}}/'$POSTGRES_HOST'/g; s/{{JWT_SECRET}}/'$JWT_SECRET'/g" | kubectl apply -f -
+        - cat udacity-c3-restapi-feed/k8s/aws-auth-secret.yaml | sed "s/{{AWS_CREDENTIALS}}/$AWS_CREDENTIALS/g" | kubectl apply -f -
         - kubectl apply -f udacity-c3-restapi-feed/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-feed/k8s/deployment.yaml
         # Deploy REST API User
         - cat udacity-c3-restapi-user/k8s/configmap.yaml | sed "s/{{AWS_REGION}}/$AWS_REGION/g; s/{{AWS_PROFILE}}/$AWS_PROFILE/g; s/{{AWS_BUCKET}}/$AWS_BUCKET/g" | kubectl apply -f -
-        - cat udacity-c3-restapi-user/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/'$POSTGRES_USERNAME'/g; s/{{POSTGRES_PASSWORD}}/'$POSTGRES_PASSWORD'/g; s/{{POSTGRES_DB}}/'$POSTGRES_DB'/g; s/{{POSTGRES_HOST}}/'$POSTGRES_HOST'/g; s/{{AWS_ACCESS_KEY_ID}}/'$AWS_ACCESS_KEY_ID'/g; s#{{AWS_SECRET_ACCESS_KEY}}#'$AWS_SECRET_ACCESS_KEY'#g; s/{{JWT_SECRET}}/'$JWT_SECRET'/g" | kubectl apply -f -
+        - cat udacity-c3-restapi-user/k8s/secret.yaml | sed "s/{{POSTGRES_USERNAME}}/'$POSTGRES_USERNAME'/g; s/{{POSTGRES_PASSWORD}}/'$POSTGRES_PASSWORD'/g; s/{{POSTGRES_DB}}/'$POSTGRES_DB'/g; s/{{POSTGRES_HOST}}/'$POSTGRES_HOST'/g; s/{{JWT_SECRET}}/'$JWT_SECRET'/g" | kubectl apply -f -
         - kubectl apply -f udacity-c3-restapi-user/k8s/service.yaml
         - kubectl apply -f udacity-c3-restapi-user/k8s/deployment.yaml

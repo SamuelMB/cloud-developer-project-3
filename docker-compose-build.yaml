@@ -2,7 +2,7 @@ version: "3"
 services:
   reverseproxy:
     build:
-      context: reverse-proxy
+      context: reverseproxy
     image: samuelmbas/reverseproxy
   backend_user:
     build:
