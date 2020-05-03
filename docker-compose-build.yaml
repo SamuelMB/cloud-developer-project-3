@@ -7,12 +7,12 @@ services:
   backend_user:
     build:
       context: udacity-c3-restapi-user
-    image: samuelmbas/udacity-restapi-user
+    image: samuelmbas/restapi-user
   backend_feed:
     build:
       context: udacity-c3-restapi-feed
-    image: samuelmbas/udacity-restapi-feed
+    image: samuelmbas/restapi-feed
   frontend:
     build:
       context: udacity-c3-frontend
-    image: samuelmbas/udacity-frontend
+    image: samuelmbas/frontend
