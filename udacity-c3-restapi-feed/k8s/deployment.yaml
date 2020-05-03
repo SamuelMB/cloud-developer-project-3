@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: restapi-feed
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: restapi-feed
@@ -13,15 +14,14 @@ spec:
         app: restapi-feed
 
     spec:
-      replicas: 2
       containers:
         - name: restapi-feed
 
           image: samuelmbas/udacity-restapi-feed
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "250m"
+              memory: '128Mi'
+              cpu: '250m'
           ports:
             - containerPort: 8080
           envFrom:
@@ -31,7 +31,7 @@ spec:
                 name: restapi-feed-secret
           volumeMounts:
             - name: aws-auth
-              mountPath: "/root/.aws/"
+              mountPath: '/root/.aws/'
               readOnly: true
       volumes:
         - name: aws-auth

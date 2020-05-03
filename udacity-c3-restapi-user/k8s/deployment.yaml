@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: restapi-user
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: restapi-user
@@ -11,14 +12,13 @@ spec:
       labels:
         app: restapi-user
     spec:
-      replicas: 2
       containers:
         - name: restapi-user
           image: samuelmbas/udacity-restapi-user
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "250m"
+              memory: '128Mi'
+              cpu: '250m'
           ports:
             - containerPort: 8080
           envFrom:
