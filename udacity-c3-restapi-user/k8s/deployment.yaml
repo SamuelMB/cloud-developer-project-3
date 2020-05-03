@@ -11,6 +11,7 @@ spec:
       labels:
         app: restapi-user
     spec:
+      replicas: 2
       containers:
         - name: restapi-user
           image: samuelmbas/udacity-restapi-user

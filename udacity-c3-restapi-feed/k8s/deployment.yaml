@@ -13,6 +13,7 @@ spec:
         app: restapi-feed
 
     spec:
+      replicas: 2
       containers:
         - name: restapi-feed
 
