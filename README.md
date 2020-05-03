@@ -54,14 +54,14 @@ Follow this guide from Kubeone to provision and setup kubernetes on AWS:
 
 - https://github.com/kubermatic/kubeone/blob/master/docs/quickstart-aws.md 
 
-All kubernetes sources stored in the following folders:
+All kubernetes sources are stored in these folders:
 
 - ./reverseproxy/k8s
 - ./udacity-c3-frontend/k8s
 - ./udacity-c3-restapi-feed/k8s
 - ./udacity-c3-restapi-user/k8s
 
-Replace all variables in secrets and configmap files.
+Replace all variables in secrets and configmaps files.
 
 Apply k8s files:
 
